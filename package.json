@@ -1,115 +1,249 @@
 {
-  "name": "jar-explorer",
-  "displayName": "Jar Explorer",
-  "description": "This used to view the class file content in vs code",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/en-rypted/jar-explorer.git"
-  },
-  "publisher": "shivwakchaure",
-  "author": {
-    "name": "Shiv",
-    "email": "shivwakchaure19@gmail.com"
-  },
-  "version": "1.1.0",
-  "engines": {
-    "vscode": "^1.102.0"
-  },
-  "icon": "media/icon.png",
-  "categories": [
-    "Other"
-  ],
-  "activationEvents": [],
-  "main": "./extension.js",
-  "scripts": {
-    "lint": "eslint .",
-    "pretest": "npm run lint",
-    "test": "vscode-test"
-  },
-  "devDependencies": {
-    "@types/mocha": "^10.0.10",
-    "@types/node": "20.x",
-    "@types/vscode": "^1.102.0",
-    "@vscode/test-cli": "^0.0.11",
-    "@vscode/test-electron": "^2.5.2",
-    "eslint": "^9.25.1"
-  },
-  "contributes": {
-    "views": {
-      "jarExplorer": [
-        {
-          "id": "jarExplorerView",
-          "name": "JAR Explorer",
-          "icon": "media/icon.png"
-        }
-      ]
+    "name": "jar-explorer-enhanced",
+    "displayName": "JAR Explorer Enhanced",
+    "description": "Browse, decompile, search, and live-edit files inside JAR, WAR, EAR, and ZIP archives directly in VS Code.",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/luizdores/jar-explorer.git"
     },
-    "customEditors": [
-      {
-        "viewType": "jarExplorer.editor",
-        "displayName": "JAR Explorer",
-        "selector": [
-          {
-            "filenamePattern": "*.jar"
-          },
-          {
-            "filenamePattern": "*.zip"
-          },
-          {
-            "filenamePattern": "*.war"
-          },
-          {
-            "filenamePattern": "*.ear"
-          },
-          {
-            "filenamePattern": "*.vsix"
-          }
-        ]
-      }
+    "publisher": "luizdores",
+    "author": {
+        "name": "Luiz Dores",
+        "url": "https://github.com/luizdores"
+    },
+    "contributors": [
+        {
+            "name": "Shiv Wakchaure",
+            "email": "shivwakchaure19@gmail.com",
+            "url": "https://github.com/en-rypted"
+        }
     ],
-    "configuration": {
-      "properties": {
-        "jarExplorer.jdkPath": {
-          "type": "string",
-          "default": "java",
-          "description": "Path to your Java executable"
-        }
-      }
+    "version": "1.2.0",
+    "engines": {
+        "vscode": "^1.85.0"
     },
-    "viewsContainers": {
-      "activitybar": [
-        {
-          "id": "jarExplorer",
-          "title": "JAR Explorer",
-          "icon": "media/icon_nav.png"
-        }
-      ]
-    },
-    "commands": [
-      {
-        "command": "jarExplorer.openWithCustomEditor",
-        "title": "🧩 Open in JAR Explorer"
-      },
-      {
-        "command": "jarExplorer.removeFile",
-        "title": "🗑️ Remove Folder"
-      }
+    "icon": "media/icon.png",
+    "categories": [
+        "Other"
     ],
-    "menus": {
-      "explorer/context": [
-        {
-          "command": "jarExplorer.openWithCustomEditor",
-          "when": "resourceExtname == .jar || resourceExtname == .zip || resourceExtname == .war || resourceExtname == .ear || resourceExtname == .vsix",
-          "group": "navigation"
+    "activationEvents": [],
+    "main": "./extension.js",
+    "scripts": {
+        "lint": "eslint .",
+        "pretest": "npm run lint",
+        "test": "vscode-test"
+    },
+    "devDependencies": {
+        "@types/mocha": "^10.0.10",
+        "@types/node": "20.x",
+        "@types/vscode": "^1.85.0",
+        "@vscode/test-cli": "^0.0.11",
+        "@vscode/test-electron": "^2.5.2",
+        "eslint": "^9.25.1"
+    },
+    "bundledResources": {
+        "chart.js": "4.4.0 — bundled as resources/chart.umd.min.js (download from https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js)"
+    },
+    "contributes": {
+        "views": {
+            "jarExplorerEnhanced": [
+                {
+                    "id": "jarExplorerView",
+                    "name": "JAR Explorer Enhanced",
+                    "icon": "media/icon.png"
+                }
+            ]
+        },
+        "customEditors": [
+            {
+                "viewType": "jarExplorer.editor",
+                "displayName": "JAR Explorer Enhanced",
+                "selector": [
+                    {
+                        "filenamePattern": "*.jar"
+                    },
+                    {
+                        "filenamePattern": "*.zip"
+                    },
+                    {
+                        "filenamePattern": "*.war"
+                    },
+                    {
+                        "filenamePattern": "*.ear"
+                    },
+                    {
+                        "filenamePattern": "*.vsix"
+                    }
+                ]
+            }
+        ],
+        "configuration": {
+            "properties": {
+                "jarExplorer.jdkPath": {
+                    "type": "string",
+                    "default": "java",
+                    "description": "Path to your Java executable"
+                },
+                "jarExplorer.openInPreview": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Open decompiled and resource files in preview mode (single tab, replaced on next open). Set to false to always open in a permanent tab."
+                }
+            }
+        },
+        "viewsContainers": {
+            "activitybar": [
+                {
+                    "id": "jarExplorerEnhanced",
+                    "title": "JAR Explorer Enhanced",
+                    "icon": "media/icon_nav.png"
+                }
+            ]
+        },
+        "commands": [
+            {
+                "command": "jarExplorer.openWithCustomEditor",
+                "title": "🧩 Open in JAR Explorer Enhanced"
+            },
+            {
+                "command": "jarExplorer.removeFile",
+                "title": "🗑️ Remove Archive"
+            },
+            {
+                "command": "jarExplorer.searchInJar",
+                "title": "🔍 Search Text in Archive..."
+            },
+            {
+                "command": "jarExplorer.analyzeArchive",
+                "title": "📊 Analyze Archive Metadata"
+            },
+            {
+                "command": "jarExplorer.clearCache",
+                "title": "🧹 Clear Decompilation Cache"
+            },
+            {
+                "command": "jarExplorer.exportFile",
+                "title": "💾 Export File to Workspace..."
+            },
+            {
+                "command": "jarExplorer.toggleBytecode",
+                "title": "Toggle Source / Bytecode",
+                "icon": "$(file-binary)"
+            },
+            {
+                "command": "jarExplorer.toggleSort",
+                "title": "Toggle Sort Order",
+                "icon": "$(list-ordered)"
+            },
+            {
+                "command": "jarExplorer.reopenRecent",
+                "title": "Reopen Recent Archive...",
+                "icon": "$(history)"
+            },
+            {
+                "command": "jarExplorer.refreshJar",
+                "title": "Refresh Archive",
+                "icon": "$(sync)"
+            },
+            {
+                "command": "jarExplorer.clearCacheForJar",
+                "title": "🧹 Clear Cache for This Archive",
+                "icon": "$(trash)"
+            },
+            {
+                "command": "jarExplorer.copyEntryPath",
+                "title": "Copy Entry Path",
+                "icon": "$(clippy)"
+            },
+            {
+                "command": "jarExplorer.copyFQCN",
+                "title": "Copy Class Name (FQCN)",
+                "icon": "$(clippy)"
+            }
+        ],
+        "keybindings": [
+            {
+                "command": "jarExplorer.searchInJar",
+                "key": "ctrl+shift+f",
+                "mac": "cmd+shift+f",
+                "when": "view == jarExplorerView && viewItem =~ /jarRoot|folder|nestedArchive/"
+            },
+            {
+                "command": "jarExplorer.reopenRecent",
+                "key": "ctrl+shift+r",
+                "mac": "cmd+shift+r",
+                "when": "view == jarExplorerView"
+            }
+        ],
+        "menus": {
+            "explorer/context": [
+                {
+                    "command": "jarExplorer.openWithCustomEditor",
+                    "when": "resourceExtname == .jar || resourceExtname == .zip || resourceExtname == .war || resourceExtname == .ear || resourceExtname == .vsix",
+                    "group": "navigation"
+                }
+            ],
+            "editor/title": [
+                {
+                    "command": "jarExplorer.toggleBytecode",
+                    "when": "resourceScheme == virtual && resourceExtname == .java && resourceQuery =~ /jarPath/",
+                    "group": "navigation"
+                }
+            ],
+            "view/title": [
+                {
+                    "command": "jarExplorer.toggleSort",
+                    "when": "view == jarExplorerView",
+                    "group": "navigation"
+                },
+                {
+                    "command": "jarExplorer.reopenRecent",
+                    "when": "view == jarExplorerView",
+                    "group": "navigation"
+                }
+            ],
+            "view/item/context": [
+                {
+                    "command": "jarExplorer.exportFile",
+                    "when": "view == jarExplorerView && viewItem == classFile",
+                    "group": "navigation@1"
+                },
+                {
+                    "command": "jarExplorer.copyEntryPath",
+                    "when": "view == jarExplorerView && viewItem == classFile",
+                    "group": "navigation@2"
+                },
+                {
+                    "command": "jarExplorer.copyFQCN",
+                    "when": "view == jarExplorerView && viewItem == classFile && resourceExtname == .class",
+                    "group": "navigation@3"
+                },
+                {
+                    "command": "jarExplorer.searchInJar",
+                    "when": "view == jarExplorerView && (viewItem == jarRoot || viewItem == folder || viewItem == nestedArchive)",
+                    "group": "navigation@2"
+                },
+                {
+                    "command": "jarExplorer.analyzeArchive",
+                    "when": "view == jarExplorerView && viewItem == jarRoot",
+                    "group": "navigation@3"
+                },
+                {
+                    "command": "jarExplorer.removeFile",
+                    "when": "view == jarExplorerView && viewItem == jarRoot",
+                    "group": "navigation@4"
+                },
+                {
+                    "command": "jarExplorer.clearCacheForJar",
+                    "when": "view == jarExplorerView && viewItem == jarRoot",
+                    "group": "navigation@5"
+                },
+                {
+                    "command": "jarExplorer.refreshJar",
+                    "when": "view == jarExplorerView && viewItem == jarRoot",
+                    "group": "inline"
+                }
+            ]
         }
-      ],
-      "view/item/context": [
-        {
-          "command": "jarExplorer.removeFile",
-          "when": "view == jarExplorerView && viewItem == jarRoot",
-          "group": "navigation"
-        }
-      ]
     }
-  }
 }
