@@ -4,7 +4,12 @@ All notable changes to this project will be documented here.
 
 ---
 
-## [1.2.0] – 2025-08-10
+## [1.2.1] – 2026-05-21
+
+### Fix
+- **Live editing** — Fixed a bug were it was not being able to save repack jars in Windows.
+
+## [1.2.0] – 2026-05-20
 
 ### 🎉 JAR Explorer Enhanced (Major Fork Update)
 This release represents a comprehensive overhaul, transforming the extension from a read-only viewer into a full-fledged enterprise archive manager.

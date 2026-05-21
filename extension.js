@@ -1239,8 +1239,12 @@ function activate(context) {
             rootJarPath = nestedInfo.rootJarPath;
             nestedJarEntry = nestedInfo.nestedJarEntry;
           }
-          liveEditMap.set(tempFile, { jarPath, entryPath, rootJarPath, nestedJarEntry });
-          liveEditReverseMap.set(jarPath + '::' + entryPath, tempFile);
+          
+          // FIX: Normalize the path using vscode.Uri to ensure drive letters match on Windows
+          const normalizedTempFile = vscode.Uri.file(tempFile).fsPath;
+          
+          liveEditMap.set(normalizedTempFile, { jarPath, entryPath, rootJarPath, nestedJarEntry });
+          liveEditReverseMap.set(jarPath + '::' + entryPath, normalizedTempFile);
 
           const doc = await vscode.workspace.openTextDocument(vscode.Uri.file(tempFile));
           await vscode.window.showTextDocument(doc, { preview: previewMode });
